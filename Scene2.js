@@ -4,54 +4,70 @@ class Scene2 extends Phaser.Scene {
     }
   
     create() {
-      // 4.1 make the background a tile sprite
-      //this.background = this.add.image(0, 0, "background");
-      this.background = this.add.tileSprite(0, 0, config.width, config.height, "background");
-      this.background.setOrigin(0, 0);
-  
-      this.ship1 = this.add.image(config.width / 2 - 50, config.height / 2, "ship");
-      this.ship2 = this.add.image(config.width / 2, config.height / 2, "ship2");
-      this.ship3 = this.add.image(config.width / 2 + 50, config.height / 2, "ship3");
-  
-      this.add.text(20, 20, "Playing game", {
-        font: "25px Arial",
-        fill: "yellow"
+
+      //Imagens do cenário parallax
+      this.background06 = this.add.tileSprite(0, 0, config.width, config.height, "background06");
+      this.background06.setOrigin(0, 0);
+      this.background06.setScale(1.5);
+      this.background05 = this.add.tileSprite(0, 0, config.width, config.height, "background05");
+      this.background05.setOrigin(0, 0);
+      this.background05.setScale(1.5);
+      this.background04 = this.add.tileSprite(0, 0, config.width, config.height, "background04");
+      this.background04.setOrigin(0, 0);
+      this.background04.setScale(1.5);
+      this.background03 = this.add.tileSprite(0, 0, config.width, config.height, "background03");
+      this.background03.setOrigin(0, 0);
+      this.background03.setScale(1.5);
+      this.background02 = this.add.tileSprite(0, 0, config.width, config.height, "background02");
+      this.background02.setOrigin(0, 0);
+      this.background02.setScale(1.5);
+      this.background01 = this.add.tileSprite(0, 0, config.width, config.height, "background01");
+      this.background01.setOrigin(0, 0);
+      this.background01.setScale(1.5);
+      //
+
+    //HUD background
+    var graphics = this.add.graphics();
+    graphics.fillStyle(0x261321, 1);
+    graphics.beginPath();
+    graphics.moveTo(0, 0);
+    graphics.lineTo(config.width, 0);
+    graphics.lineTo(config.width, 30);
+    graphics.lineTo(0, 30);
+    graphics.lineTo(0, 0);
+    graphics.closePath();
+    graphics.fillPath();
+
+      //score
+      this.score = 0;
+    
+      //Textos
+      this.scoreLabel = this.add.bitmapText(10, 5, "pixelFont", "Lixo coletado: ", 25);
+
+      //posicionamento raposa correndo
+      this.fox = this.add.sprite(202, 202, 'fox');
+      this.fox.setScale(1.5);
+
+      //animação raposa correnndo
+      this.anims.create({
+        key: "fox_anim",
+        frames: this.anims.generateFrameNumbers("fox"),
+        frameRate: 10,
+        repeat: -1
       });
-  
+      this.fox.play("fox_anim");
+
     }
   
     // 0 add the update function
     update() {
-  
-      // 1.1 call a function to move the ships vertically
-      this.moveShip(this.ship1, 1);
-      this.moveShip(this.ship2, 2);
-      this.moveShip(this.ship3, 3);
-  
       // 4.2 scroll the background
-      this.background.tilePositionX += 0.5;
-  
+      this.background01.tilePositionX += 2;
+      this.background02.tilePositionX += 1;
+      this.background03.tilePositionX += 0.5;
+      this.background04.tilePositionX += 0.25;
+      this.background05.tilePositionX += 0.125;
+      this.background06.tilePositionX += 0;
     }
-  
-    // 1.2 create the function to move the ships
-    moveShip(ship, speed) {
-      // increase the position of the ship on the vertical axis
-      ship.y += speed;
-      // if the ship hits the bottom of the screen call the reset function
-      if (ship.y > config.height) {
-        // 2.1 call a reset position function
-        this.resetShipPos(ship);
-      }
-    }
-  
-    // 2.2 create the reset position function
-    resetShipPos(ship){
-      // put the ship on the top
-      ship.y = 0;
-      // put the ship on a random position on the x axis
-      var randomX = Phaser.Math.Between(0, config.width);
-      ship.x = randomX;
-    }
-  
   
   }
