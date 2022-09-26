@@ -26,7 +26,7 @@ class Scene2 extends Phaser.Scene {
       this.background01.setScale(1.5);
       //
 
-    //HUD background
+    //HUD Score
     var graphics = this.add.graphics();
     graphics.fillStyle(0x261321, 1);
     graphics.beginPath();
@@ -37,6 +37,19 @@ class Scene2 extends Phaser.Scene {
     graphics.lineTo(0, 0);
     graphics.closePath();
     graphics.fillPath();
+    
+    //HUD Botões
+    var graphics = this.add.graphics();
+    graphics.fillStyle(0x261321, 1);
+    graphics.beginPath();
+    graphics.moveTo(0, 270);
+    graphics.lineTo(config.width, 270);
+    graphics.lineTo(config.width, 615);
+    graphics.lineTo(270, 615);
+    graphics.lineTo(0, 615);
+    graphics.closePath();
+    graphics.fillPath();
+    
 
       //score
       this.score = 0;
@@ -61,7 +74,7 @@ class Scene2 extends Phaser.Scene {
   
     // 0 add the update function
     update() {
-      // 4.2 scroll the background
+      //parallax
       this.background01.tilePositionX += 2;
       this.background02.tilePositionX += 1;
       this.background03.tilePositionX += 0.5;
