@@ -62,8 +62,7 @@ class Scene2 extends Phaser.Scene
 
 
       //posicionamento raposa correndo
-      //this.fox = this.add.sprite(202, 202, 'foxrun');
-      //this.fox.setScale(1.5);
+      
       //animação raposa correnndo e atk
       this.anims.create({
         key: "fox_run_anim",
@@ -71,7 +70,6 @@ class Scene2 extends Phaser.Scene
         frameRate: 10,
         repeat: -1
       });
-      //this.fox.play("fox_run_anim");
 
       this.anims.create({
           key: "fox_atk_anim",
@@ -80,11 +78,13 @@ class Scene2 extends Phaser.Scene
           repeat: 0
       });
       //transicionar animaçao
-      this.anims.addMix('fox_run_anim', 'fox_atk_anim', 250)
-      this.anims.addMix('fox_atk_anim', 'fox_run_anim', 250)
+      this.anims.addMix('fox_run_anim', 'fox_atk_anim', 150)
+      this.anims.addMix('fox_atk_anim', 'fox_run_anim', 150)
 
       //variavel fox
       var fox = this.add.sprite(202, 202)
+      var shape = new Phaser.Geom.Circle(36, 35, 35);
+      fox.setInteractive(shape, Phaser.Geom.Circle.Contains);
       fox.setOrigin(0.5, 0.5);
       fox.play('fox_run_anim');
       fox.setScale(1.5);
@@ -97,29 +97,24 @@ class Scene2 extends Phaser.Scene
       this.lixo03 = this.add.image(1550, 230, "lixo03");
       this.lixo01.setScale(1.5);
 
-      this.cursorKeys = this.input.keyboard.createCursorKeys();
-      this.input.on('pointerdown', function () {
+      fox.on('pointerdown', function (pointer) {
 
         if (fox.anims.getName() === 'fox_run_anim')
           {
-              fox.play('fox_atk_anim');
-          }
-          else if (fox.anims.getName() === 'fox_atk_anim')
-          {
-                fox.play('fox_run_anim');
+              fox.playAfterRepeat('fox_atk_anim');
+              fox.chain(['fox_run_anim']);
           }
 
       });
-
     }
   
     // 0 add the update function
     update() 
     {
       //lixos movendo (chamando a funçao)
-      this.moveLixo1(this.lixo01, -3, 0);
+      /*this.moveLixo1(this.lixo01, -3, 0);
       this.moveLixo2(this.lixo02, -3, 0);
-      this.moveLixo3(this.lixo03, -3, 0);
+      this.moveLixo3(this.lixo03, -3, 0);*/
 
       //parallax
       this.background01.tilePositionX += 2;
@@ -129,7 +124,7 @@ class Scene2 extends Phaser.Scene
       this.background05.tilePositionX += 0.125;
       this.background06.tilePositionX += 0;
 
-      this.movePlayerManager();
+  
       
       /*if(Phaser.Input.Keyboard.JustDown(this.spacebar))
       {
@@ -147,13 +142,30 @@ class Scene2 extends Phaser.Scene
             }
       }*/
     }
-    //fox atk funçao (coleta de lixo)
-    movePlayerManager()
-    {
-      this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+    //lixo spawn
+    spawnLixo(lixo){
+    let lixo; 
+    
+    // Generate random amount of coins each time
+    let lixoToSpawn = Phaser.Math.Between(1,5);
+    for(let i = 0; i < lixoToSpawn; i++){
+
+    // Get Random y position (x is always bigger than the scene width)enerate types
+    let yCord = Phaser.Math.Between(20, 180);
+    let xCord = 400 + Phaser.Math.Between(0, 100);
+
+    // Randomly generate types
+    let lixoType = Phaser.Math.Between(0, 2);
+
+    switch(lixoType){
+      case 0:
+        lixo = this.add.lixo01(xCord, yCord)
+    }
+    }
+    // Start next Coin loading randomly in 2.5 - 3 Seconds
     }
     //lixos movendo funçao
-    moveLixo1(lixo, speedx, speedy)
+    /*moveLixo1(lixo, speedx, speedy)
     {
       lixo.y += speedy 
       lixo.x += speedx
@@ -179,5 +191,5 @@ class Scene2 extends Phaser.Scene
       {
         lixo.x = 1550;
       }
-    }
+    }*/
 }
