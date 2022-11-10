@@ -45,24 +45,151 @@ class Scene2 extends Phaser.Scene
       graphics.beginPath();
       graphics.moveTo(0, 270);
       graphics.lineTo(config.width, 270);
-      graphics.lineTo(config.width, 615);
-      graphics.lineTo(270, 615);
-      graphics.lineTo(0, 615);
+      graphics.lineTo(config.width, 725);
+      graphics.lineTo(270, 725);
+      graphics.lineTo(0, 725);
       graphics.closePath();
       graphics.fillPath();
 
-      //borda
-      this.hud = this.add.sprite(300, 450, "borda")
-
+      //HUD menu
+      var graphics = this.add.graphics();
+      graphics.fillStyle(0x412b30, 1);
+      graphics.beginPath();
+      graphics.moveTo(850, 300);
+      graphics.lineTo(850, 300);
+      graphics.lineTo(850, 700);
+      graphics.lineTo(1450, 700);
+      graphics.lineTo(1450, 300);
+      graphics.closePath();
+      graphics.fillPath();
+      
       //score
-      this.score = 0;
+      this.score = 11;
     
       //Textos
       this.scoreLabel = this.add.bitmapText(10, 5, "pixelFont", "Lixo coletado: ", 25);
+      this.menu = this.add.bitmapText(1140, 315, "pixelFont", "MENU", 25);
 
+      //botoes
+      var botao01 = this.add.sprite(50, 350, "botao");
+      botao01.setScale(1.5);
+      botao01.setInteractive()
 
-      //posicionamento raposa correndo
-      
+      botao01.on('pointerover', function(){
+
+        botao01.setTint(0xa37f5f);
+      });
+      botao01.on('pointerout', function(){
+
+        botao01.clearTint();
+        
+      });
+
+      var botao02 = this.add.sprite(50, 450, "botao");
+      botao02.setScale(1.5);
+      botao02.setInteractive()
+
+      botao02.on('pointerover', function(){
+
+        botao02.setTint(0xa37f5f);
+
+      });
+      botao02.on('pointerout', function(){
+
+        botao02.clearTint();
+        
+      });
+
+      var botao03 = this.add.sprite(50, 550, "botao");
+      botao03.setScale(1.5);
+      botao03.setInteractive()
+
+      botao03.on('pointerover', function(){
+
+        botao03.setTint(0xa37f5f);
+
+      });
+      botao03.on('pointerout', function(){
+
+        botao03.clearTint();
+        
+      });
+
+      var botao04 = this.add.sprite(50, 650, "botao");
+      botao04.setScale(1.5);
+      botao04.setInteractive()
+
+      botao04.on('pointerover', function(){
+
+        botao04.setTint(0xa37f5f);
+
+      });
+      botao04.on('pointerout', function(){
+
+        botao04.clearTint();
+        
+      });
+
+      var botao05 = this.add.sprite(450, 350, "botao");
+      botao05.setScale(1.5);
+      botao05.setInteractive()
+
+      botao05.on('pointerover', function(){
+
+        botao05.setTint(0xa37f5f);
+
+      });
+      botao05.on('pointerout', function(){
+
+        botao05.clearTint();
+        
+      });
+
+      var botao06 = this.add.sprite(450, 450, "botao");
+      botao06.setScale(1.5);
+      botao06.setInteractive()
+
+      botao06.on('pointerover', function(){
+
+        botao06.setTint(0xa37f5f);
+
+      });
+      botao06.on('pointerout', function(){
+
+        botao06.clearTint();
+        
+      });
+
+      var botao07 = this.add.sprite(450, 550, "botao");
+      botao07.setScale(1.5);
+      botao07.setInteractive()
+
+      botao07.on('pointerover', function(){
+
+        botao07.setTint(0xa37f5f);
+
+      });
+      botao07.on('pointerout', function(){
+
+        botao07.clearTint();
+        
+      });
+
+      var botao08 = this.add.sprite(450, 650, "botao");
+      botao08.setScale(1.5);
+      botao08.setInteractive()
+
+      botao08.on('pointerover', function(){
+
+        botao08.setTint(0xa37f5f);
+
+      });
+      botao08.on('pointerout', function(){
+
+        botao08.clearTint();
+        
+      });
+
       //animação raposa correnndo e atk
       this.anims.create({
         key: "fox_run_anim",
@@ -78,8 +205,8 @@ class Scene2 extends Phaser.Scene
           repeat: 0
       });
       //transicionar animaçao
-      this.anims.addMix('fox_run_anim', 'fox_atk_anim', 150)
-      this.anims.addMix('fox_atk_anim', 'fox_run_anim', 150)
+      //this.anims.addMix('fox_run_anim', 'fox_atk_anim', 50)
+      this.anims.addMix('fox_atk_anim', 'fox_run_anim', 50)
 
       //variavel fox
       var fox = this.add.sprite(202, 202)
@@ -112,9 +239,9 @@ class Scene2 extends Phaser.Scene
     update() 
     {
       //lixos movendo (chamando a funçao)
-      /*this.moveLixo1(this.lixo01, -3, 0);
+      this.moveLixo1(this.lixo01, -3, 0);
       this.moveLixo2(this.lixo02, -3, 0);
-      this.moveLixo3(this.lixo03, -3, 0);*/
+      this.moveLixo3(this.lixo03, -3, 0);
 
       //parallax
       this.background01.tilePositionX += 2;
@@ -124,48 +251,10 @@ class Scene2 extends Phaser.Scene
       this.background05.tilePositionX += 0.125;
       this.background06.tilePositionX += 0;
 
-  
-      
-      /*if(Phaser.Input.Keyboard.JustDown(this.spacebar))
-      {
-        /*this.fox = this.add.sprite(202, 202, 'foxatk');
-        this.fox.play("fox_atk_anim");
-        this.fox.setScale(1.5);
-
-        if (fox.anims.getName() === 'fox_run_anim')
-            {
-                fox.play('fox_atk_anim');
-            }
-            else if (fox.anims.getName() === 'fox_atk_anim')
-            {
-                fox.play('fox_run_anim');
-            }
-      }*/
     }
-    //lixo spawn
-    spawnLixo(lixo){
-    let lixo; 
     
-    // Generate random amount of coins each time
-    let lixoToSpawn = Phaser.Math.Between(1,5);
-    for(let i = 0; i < lixoToSpawn; i++){
-
-    // Get Random y position (x is always bigger than the scene width)enerate types
-    let yCord = Phaser.Math.Between(20, 180);
-    let xCord = 400 + Phaser.Math.Between(0, 100);
-
-    // Randomly generate types
-    let lixoType = Phaser.Math.Between(0, 2);
-
-    switch(lixoType){
-      case 0:
-        lixo = this.add.lixo01(xCord, yCord)
-    }
-    }
-    // Start next Coin loading randomly in 2.5 - 3 Seconds
-    }
     //lixos movendo funçao
-    /*moveLixo1(lixo, speedx, speedy)
+    moveLixo1(lixo, speedx, speedy)
     {
       lixo.y += speedy 
       lixo.x += speedx
@@ -191,5 +280,5 @@ class Scene2 extends Phaser.Scene
       {
         lixo.x = 1550;
       }
-    }*/
+    }
 }
