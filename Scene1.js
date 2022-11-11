@@ -38,7 +38,12 @@ class Scene1 extends Phaser.Scene
         //hud geral
         this.load.image("hud", "./assets/images/hud.png");
         this.load.image("botao01", "./assets/images/botao01.png");
-        this.load.image("botao", "./assets/images/botao_redondo.png");
+        this.load.image("botao02", "./assets/images/botao02.png");
+        this.load.image("botao03", "./assets/images/botao03.png");
+        this.load.image("botao04", "./assets/images/botao04.png");
+        this.load.image("botao05", "./assets/images/botao05.png");
+        this.load.image("botao06", "./assets/images/botao06.png");
+        this.load.image("plank", "./assets/images/plank.png");
         this.load.image("borda", "./assets/images/borda.png");
     }
 

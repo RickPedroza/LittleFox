@@ -53,7 +53,7 @@ class Scene2 extends Phaser.Scene
 
       //HUD menu
       var graphics = this.add.graphics();
-      graphics.fillStyle(0x412b30, 1);
+      graphics.fillStyle(0x4c3339, 1);
       graphics.beginPath();
       graphics.moveTo(850, 300);
       graphics.lineTo(850, 300);
@@ -71,9 +71,11 @@ class Scene2 extends Phaser.Scene
       this.menu = this.add.bitmapText(1140, 315, "pixelFont", "MENU", 25);
 
       //botoes
-      var botao01 = this.add.sprite(50, 350, "botao");
+      var botao01 = this.add.sprite(70, 350, "botao01");
       botao01.setScale(1.5);
       botao01.setInteractive()
+      var borda01 = this.add.sprite(260, 375, "borda");
+      this.plank = this.add.sprite(260, 330, "plank"); 
 
       botao01.on('pointerover', function(){
 
@@ -85,9 +87,11 @@ class Scene2 extends Phaser.Scene
         
       });
 
-      var botao02 = this.add.sprite(50, 450, "botao");
+      var botao02 = this.add.sprite(70, 500, "botao02");
       botao02.setScale(1.5);
       botao02.setInteractive()
+      var borda02 = this.add.sprite(260, 525, "borda");
+      this.plank = this.add.sprite(260, 475, "plank");
 
       botao02.on('pointerover', function(){
 
@@ -100,9 +104,11 @@ class Scene2 extends Phaser.Scene
         
       });
 
-      var botao03 = this.add.sprite(50, 550, "botao");
+      var botao03 = this.add.sprite(70, 650, "botao03");
       botao03.setScale(1.5);
       botao03.setInteractive()
+      var borda03 = this.add.sprite(260, 675, "borda");
+      this.plank = this.add.sprite(260, 625, "plank");
 
       botao03.on('pointerover', function(){
 
@@ -115,9 +121,11 @@ class Scene2 extends Phaser.Scene
         
       });
 
-      var botao04 = this.add.sprite(50, 650, "botao");
+      var botao04 = this.add.sprite(470, 350, "botao04");
       botao04.setScale(1.5);
       botao04.setInteractive()
+      var borda04 = this.add.sprite(660, 375, "borda");
+      this.plank = this.add.sprite(660, 325, "plank");
 
       botao04.on('pointerover', function(){
 
@@ -130,9 +138,11 @@ class Scene2 extends Phaser.Scene
         
       });
 
-      var botao05 = this.add.sprite(450, 350, "botao");
+      var botao05 = this.add.sprite(470, 500, "botao05");
       botao05.setScale(1.5);
       botao05.setInteractive()
+      var borda05 = this.add.sprite(660, 525, "borda");
+      this.plank = this.add.sprite(660, 475, "plank");
 
       botao05.on('pointerover', function(){
 
@@ -145,9 +155,11 @@ class Scene2 extends Phaser.Scene
         
       });
 
-      var botao06 = this.add.sprite(450, 450, "botao");
+      var botao06 = this.add.sprite(470, 650, "botao06");
       botao06.setScale(1.5);
-      botao06.setInteractive()
+      botao06.setInteractive();
+      var borda05 = this.add.sprite(660, 675, "borda");
+      this.plank = this.add.sprite(660, 625, "plank");
 
       botao06.on('pointerover', function(){
 
@@ -157,36 +169,6 @@ class Scene2 extends Phaser.Scene
       botao06.on('pointerout', function(){
 
         botao06.clearTint();
-        
-      });
-
-      var botao07 = this.add.sprite(450, 550, "botao");
-      botao07.setScale(1.5);
-      botao07.setInteractive()
-
-      botao07.on('pointerover', function(){
-
-        botao07.setTint(0xa37f5f);
-
-      });
-      botao07.on('pointerout', function(){
-
-        botao07.clearTint();
-        
-      });
-
-      var botao08 = this.add.sprite(450, 650, "botao");
-      botao08.setScale(1.5);
-      botao08.setInteractive()
-
-      botao08.on('pointerover', function(){
-
-        botao08.setTint(0xa37f5f);
-
-      });
-      botao08.on('pointerout', function(){
-
-        botao08.clearTint();
         
       });
 
