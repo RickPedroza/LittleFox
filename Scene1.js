@@ -23,7 +23,7 @@ class Scene1 extends Phaser.Scene
         this.load.image("lixo02", "./assets/images/lixo02.png");
         this.load.image("lixo03", "./assets/images/lixo03.png");
 
-        //raposa spritesheet (run, atk)
+        //raposa spritesheet (run, atk e slash)
         this.load.spritesheet("foxrun", "./assets/spritesheets/fox_run_spritesheet.png",
         {
             frameWidth: 64,
@@ -33,6 +33,11 @@ class Scene1 extends Phaser.Scene
         {
             frameWidth: 80,
             frameHeight: 64
+        });
+        this.load.spritesheet("slash", "./assets/spritesheets/slash_spritesheet.png",
+        {
+            frameWidth: 10,
+            frameHeight: 45
         });
         
         //hud geral
@@ -45,6 +50,7 @@ class Scene1 extends Phaser.Scene
         this.load.image("botao06", "./assets/images/botao06.png");
         this.load.image("plank", "./assets/images/plank.png");
         this.load.image("borda", "./assets/images/borda.png");
+        this.load.image("trofeu", "./assets/images/trofeu.png");
     }
 
     create()

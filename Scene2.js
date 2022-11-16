@@ -6,6 +6,7 @@ class Scene2 extends Phaser.Scene
   
     create() {
 
+      
       //Imagens do cenário parallax
       this.background06 = this.add.tileSprite(0, 0, config.width, config.height, "background06");
       this.background06.setOrigin(0, 0);
@@ -62,15 +63,19 @@ class Scene2 extends Phaser.Scene
       graphics.lineTo(1450, 300);
       graphics.closePath();
       graphics.fillPath();
+
+      //var trofeu = this.add.sprite(1375, 600, "trofeu");
       
       //score
-      this.score = 11;
+      this.score = 0;
     
       //Textos
       this.scoreLabel = this.add.bitmapText(10, 5, "pixelFont", "Lixo coletado: ", 25);
       this.menu = this.add.bitmapText(1140, 315, "pixelFont", "MENU", 25);
 
       //botoes
+
+      //botao 01
       var botao01 = this.add.sprite(70, 350, "botao01");
       botao01.setScale(1.5);
       botao01.setInteractive()
@@ -87,6 +92,7 @@ class Scene2 extends Phaser.Scene
         
       });
 
+      //botao 02
       var botao02 = this.add.sprite(70, 500, "botao02");
       botao02.setScale(1.5);
       botao02.setInteractive()
@@ -104,6 +110,7 @@ class Scene2 extends Phaser.Scene
         
       });
 
+      //botao 03
       var botao03 = this.add.sprite(70, 650, "botao03");
       botao03.setScale(1.5);
       botao03.setInteractive()
@@ -121,6 +128,7 @@ class Scene2 extends Phaser.Scene
         
       });
 
+      //botao 04
       var botao04 = this.add.sprite(470, 350, "botao04");
       botao04.setScale(1.5);
       botao04.setInteractive()
@@ -138,6 +146,7 @@ class Scene2 extends Phaser.Scene
         
       });
 
+      //botao 05
       var botao05 = this.add.sprite(470, 500, "botao05");
       botao05.setScale(1.5);
       botao05.setInteractive()
@@ -155,12 +164,13 @@ class Scene2 extends Phaser.Scene
         
       });
 
-      var botao06 = this.add.sprite(470, 650, "botao06");
+      //botao 06
+      var botao06 = this.add.sprite(470, 650, "botao06").setInteractive();
       botao06.setScale(1.5);
-      botao06.setInteractive();
-      var borda05 = this.add.sprite(660, 675, "borda");
+      var borda06 = this.add.sprite(660, 675, "borda");
       this.plank = this.add.sprite(660, 625, "plank");
 
+      
       botao06.on('pointerover', function(){
 
         botao06.setTint(0xa37f5f);
@@ -172,23 +182,25 @@ class Scene2 extends Phaser.Scene
         
       });
 
-      //animação raposa correnndo e atk
+      //animação raposa correnndo,atk e slash
       this.anims.create({
         key: "fox_run_anim",
         frames: this.anims.generateFrameNumbers("foxrun"),
         frameRate: 10,
         repeat: -1
       });
-
       this.anims.create({
           key: "fox_atk_anim",
           frames: this.anims.generateFrameNumbers("foxatk"),
           frameRate: 10,
           repeat: 0
       });
-      //transicionar animaçao
-      //this.anims.addMix('fox_run_anim', 'fox_atk_anim', 50)
-      this.anims.addMix('fox_atk_anim', 'fox_run_anim', 50)
+      this.anims.create({
+          key: "slash_anim",
+          frames: this.anims.generateFrameNumbers("slash"),
+          frameRate: 1,
+          repeat: 0
+      });
 
       //variavel fox
       var fox = this.add.sprite(202, 202)
@@ -199,20 +211,19 @@ class Scene2 extends Phaser.Scene
       fox.setScale(1.5);
 
       //lixos
-      this.lixo01 = this.add.image(1300, 215, "lixo01");
-      this.lixo01.setScale(1.5);
-      this.lixo02 = this.add.image(1450, 215, "lixo02");
-      this.lixo01.setScale(1.5);
-      this.lixo03 = this.add.image(1550, 230, "lixo03");
-      this.lixo01.setScale(1.5);
+      var lixo01 = this.add.image(1300, 215, "lixo01");
+      var lixo02 = this.add.image(1350, 215, "lixo02");
+      var lixo03 = this.add.image(1250, 230, "lixo03");
 
       fox.on('pointerdown', function (pointer) {
 
+        
         if (fox.anims.getName() === 'fox_run_anim')
-          {
-              fox.playAfterRepeat('fox_atk_anim');
-              fox.chain(['fox_run_anim']);
-          }
+        {
+          fox.playAfterRepeat('fox_atk_anim');
+          fox.chain(['fox_run_anim']);
+          this.shootSlash();
+        }
 
       });
     }
@@ -221,9 +232,9 @@ class Scene2 extends Phaser.Scene
     update() 
     {
       //lixos movendo (chamando a funçao)
-      this.moveLixo1(this.lixo01, -3, 0);
-      this.moveLixo2(this.lixo02, -3, 0);
-      this.moveLixo3(this.lixo03, -3, 0);
+      /*moveLixo1(lixo01, -3, 0);
+      moveLixo2(lixo02, -3, 0);
+      moveLixo3(lixo03, -3, 0);*/
 
       //parallax
       this.background01.tilePositionX += 2;
@@ -234,13 +245,16 @@ class Scene2 extends Phaser.Scene
       this.background06.tilePositionX += 0;
 
     }
-    
+    //disparo da raposa(slash)
+    shootSlash(){
+      var slash = new Slash(this);
+    }
     //lixos movendo funçao
-    moveLixo1(lixo, speedx, speedy)
+    /*moveLixo1(lixo, speedx, speedy)
     {
       lixo.y += speedy 
       lixo.x += speedx
-      if(lixo.x < -30 && this.lixo01)
+      if(lixo.x < -30 && lixo01)
       {
         lixo.x = 1350;
       }
@@ -249,7 +263,7 @@ class Scene2 extends Phaser.Scene
     {
       lixo.y += speedy 
       lixo.x += speedx
-      if(lixo.x < -30 && this.lixo02)
+      if(lixo.x < -30 && lixo02)
       {
         lixo.x = 1450;
       }
@@ -258,9 +272,9 @@ class Scene2 extends Phaser.Scene
     {
       lixo.y += speedy 
       lixo.x += speedx
-      if(lixo.x < -30 && this.lixo03)
+      if(lixo.x < -30 && lixo03)
       {
         lixo.x = 1550;
       }
-    }
+    }*/
 }
