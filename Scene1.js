@@ -36,8 +36,8 @@ class Scene1 extends Phaser.Scene
         });
         this.load.spritesheet("slash", "./assets/spritesheets/slash_spritesheet.png",
         {
-            frameWidth: 10,
-            frameHeight: 45
+            frameWidth: 45,
+            frameHeight: 10
         });
         
         //hud geral

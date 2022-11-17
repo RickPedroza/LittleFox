@@ -170,7 +170,9 @@ class Scene2 extends Phaser.Scene
       var borda06 = this.add.sprite(660, 675, "borda");
       this.plank = this.add.sprite(660, 625, "plank");
 
-      
+      botao06.on('pointerdown', function(pointer){
+        
+      })
       botao06.on('pointerover', function(){
 
         botao06.setTint(0xa37f5f);
@@ -198,10 +200,17 @@ class Scene2 extends Phaser.Scene
       this.anims.create({
           key: "slash_anim",
           frames: this.anims.generateFrameNumbers("slash"),
-          frameRate: 1,
+          frameRate: 20,
           repeat: 0
       });
 
+      //lixos
+      this.lixo01 = this.add.image(1300, 215, "lixo01");
+      this.lixo01.setScale(1.5);
+      this.lixo02 = this.add.image(1650, 205, "lixo02");
+      this.lixo02.setScale(1.125);
+      this.lixo03 = this.add.image(1525, 230, "lixo03");
+      
       //variavel fox
       var fox = this.add.sprite(202, 202)
       var shape = new Phaser.Geom.Circle(36, 35, 35);
@@ -210,32 +219,21 @@ class Scene2 extends Phaser.Scene
       fox.play('fox_run_anim');
       fox.setScale(1.5);
 
-      //lixos
-      var lixo01 = this.add.image(1300, 215, "lixo01");
-      var lixo02 = this.add.image(1350, 215, "lixo02");
-      var lixo03 = this.add.image(1250, 230, "lixo03");
 
       fox.on('pointerdown', function (pointer) {
 
-        
+        this.shootSlash();
         if (fox.anims.getName() === 'fox_run_anim')
         {
           fox.playAfterRepeat('fox_atk_anim');
           fox.chain(['fox_run_anim']);
-          this.shootSlash();
         }
-
       });
     }
   
     // 0 add the update function
     update() 
     {
-      //lixos movendo (chamando a funçao)
-      /*moveLixo1(lixo01, -3, 0);
-      moveLixo2(lixo02, -3, 0);
-      moveLixo3(lixo03, -3, 0);*/
-
       //parallax
       this.background01.tilePositionX += 2;
       this.background02.tilePositionX += 1;
@@ -243,38 +241,30 @@ class Scene2 extends Phaser.Scene
       this.background04.tilePositionX += 0.25;
       this.background05.tilePositionX += 0.125;
       this.background06.tilePositionX += 0;
+      //this.parallaxBg(2, 1, 0.5, 0.25, 0.125, 0);
+      this.movLixo(this.lixo01, -3);
+      this.movLixo(this.lixo02, -3);
+      this.movLixo(this.lixo03, -3);
+    }
 
-    }
     //disparo da raposa(slash)
-    shootSlash(){
-      var slash = new Slash(this);
-    }
-    //lixos movendo funçao
-    /*moveLixo1(lixo, speedx, speedy)
+
+    //funçao parallax
+    /*parallaxBg(bg1, bg2, bg3, bg4, bg5, bg6)
     {
-      lixo.y += speedy 
-      lixo.x += speedx
-      if(lixo.x < -30 && lixo01)
-      {
-        lixo.x = 1350;
-      }
-    }
-    moveLixo2(lixo, speedx, speedy)
-    {
-      lixo.y += speedy 
-      lixo.x += speedx
-      if(lixo.x < -30 && lixo02)
-      {
-        lixo.x = 1450;
-      }
-    }
-    moveLixo3(lixo, speedx, speedy)
-    {
-      lixo.y += speedy 
-      lixo.x += speedx
-      if(lixo.x < -30 && lixo03)
-      {
-        lixo.x = 1550;
-      }
+      bg1 = this.background01.tilePositionX++;
+      bg2 = this.background02.tilePositionX++;
+      bg3 = this.background03.tilePositionX++;
+      bg4 = this.background04.tilePositionX++;
+      bg5 = this.background05.tilePositionX++;
+      bg6 = this.background06.tilePositionX++;
     }*/
+    //lixos movendo funçao
+    movLixo(lixo, spdx){
+      lixo.x += spdx;
+      if(lixo.x < -30)
+      {
+        lixo.x = (Math.random() * (2500 - 1550)) + 1475;
+      }
+    }
 }

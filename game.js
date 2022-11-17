@@ -1,3 +1,4 @@
+//configuração de resolução e tamanho da tela do jogo
 var config =
 {
     width: 1475,
