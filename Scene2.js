@@ -63,8 +63,6 @@ class Scene2 extends Phaser.Scene
       graphics.lineTo(1450, 300);
       graphics.closePath();
       graphics.fillPath();
-
-      //var trofeu = this.add.sprite(1375, 600, "trofeu");
       
       //score
       this.score = 0;
@@ -171,7 +169,9 @@ class Scene2 extends Phaser.Scene
       this.plank = this.add.sprite(660, 625, "plank");
 
       botao06.on('pointerdown', function(pointer){
-        
+
+        trofeu.play('trofeu_anim');
+        borda06.play('borda06_anim');
       })
       botao06.on('pointerover', function(){
 
@@ -183,26 +183,8 @@ class Scene2 extends Phaser.Scene
         botao06.clearTint();
         
       });
-
-      //animação raposa correnndo,atk e slash
-      this.anims.create({
-        key: "fox_run_anim",
-        frames: this.anims.generateFrameNumbers("foxrun"),
-        frameRate: 10,
-        repeat: -1
-      });
-      this.anims.create({
-          key: "fox_atk_anim",
-          frames: this.anims.generateFrameNumbers("foxatk"),
-          frameRate: 10,
-          repeat: 0
-      });
-      this.anims.create({
-          key: "slash_anim",
-          frames: this.anims.generateFrameNumbers("slash"),
-          frameRate: 20,
-          repeat: 0
-      });
+      
+      var trofeu = this.add.sprite(1375, 600, "trofeu");
 
       //lixos
       this.lixo01 = this.add.image(1300, 215, "lixo01");
@@ -222,7 +204,6 @@ class Scene2 extends Phaser.Scene
 
       fox.on('pointerdown', function (pointer) {
 
-        this.shootSlash();
         if (fox.anims.getName() === 'fox_run_anim')
         {
           fox.playAfterRepeat('fox_atk_anim');
