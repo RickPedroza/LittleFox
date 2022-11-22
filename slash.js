@@ -2,7 +2,7 @@ class Slash extends Phaser.GameObjects.Sprite{
     constructor(scene){
 
         var x = scene.fox.x;
-        var y = scene.fox.y;
+        var y = scene.fox.y + 16; 
 
         super(scene, x, y, "slash");
         
@@ -11,6 +11,7 @@ class Slash extends Phaser.GameObjects.Sprite{
 
         // 3.3
         this.play("slash_anim");
+        
         scene.physics.world.enableBody(this);
         this.body.velocity.x += 250;
 

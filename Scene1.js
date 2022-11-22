@@ -128,5 +128,7 @@ class Scene1 extends Phaser.Scene
             frameRate: 100,
             repeat: 0
         });
+
+       
     }
 }

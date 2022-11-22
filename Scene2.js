@@ -207,11 +207,18 @@ class Scene2 extends Phaser.Scene
       var trofeu = this.add.sprite(1375, 600, "trofeu");
 
       //lixos
-      this.lixo01 = this.add.image(1300, 215, "lixo01");
+      this.lixo01 = this.add.image(1300, 215, "lixo01").setInteractive();
       this.lixo01.setScale(1.5);
-      this.lixo02 = this.add.image(1650, 205, "lixo02");
+      this.lixo02 = this.add.image(1650, 205, "lixo02").setInteractive();
       this.lixo02.setScale(1.125);
-      this.lixo03 = this.add.image(1525, 230, "lixo03");
+      this.lixo03 = this.add.image(1525, 230, "lixo03").setInteractive();
+
+      this.lixos = this.physics.add.group();
+      this.lixos.add(this.lixo01);
+      this.lixos.add(this.lixo02);
+      this.lixos.add(this.lixo03);
+
+      //this.physics.add.overlap(this.projectiles, this.lixos)
       
       //variavel fox
       var fox = this.add.sprite(202, 202)
@@ -225,15 +232,17 @@ class Scene2 extends Phaser.Scene
       
       //clique na raposa (animaçao atk e slash)
       fox.on('pointerdown', function (pointer) {
-
         if (fox.anims.getName() === 'fox_run_anim')
         {
           fox.playAfterRepeat('fox_atk_anim');
           fox.chain(['fox_run_anim']);
-          console.log("Fire!!!");
-          this.shootSlash();
         }
-      });
+        this.shootSlash();
+      }, this);
+
+      this.fox = fox;
+      
+      this.physics.add.collider(this.projectiles, this.lixos);
     }
   
     //update function
