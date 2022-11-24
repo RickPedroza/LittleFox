@@ -62,8 +62,8 @@ class Scene1 extends Phaser.Scene
         this.load.image("trofeu", "./assets/images/trofeu.png");
 
         this.load.audio("music", ["assets/sounds/8-bit-paradise.mp3"]);
-        this.load.audio("music", ["assets/sounds/8-bit-impact-sound.mp3"]);
-        this.load.audio("music", ["assets/sounds/8-bit-slash.mp3"]);
+        this.load.audio("impact", ["assets/sounds/8-bit-impact-sound.mp3"]);
+        this.load.audio("slashSound", ["assets/sounds/8-bit-slash.mp3"]);
     
     
     }

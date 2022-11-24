@@ -79,6 +79,7 @@ class Scene2 extends Phaser.Scene
           borda01.play('borda01_anim');
           this.score -= 30;
           this.scoreLabel.text = "Fox Coins: " + this.score;
+          
         }
       }, this)
       botao01.on('pointerover', function(){
@@ -267,7 +268,7 @@ class Scene2 extends Phaser.Scene
       this.music = this.sound.add("music");
       var musicConfig = {
         mute: false,
-        volume: 0.125,
+        volume: 1,
         rate: 1,
         detune: 0,
         seek: 0,
@@ -275,6 +276,8 @@ class Scene2 extends Phaser.Scene
         delay: 0
       }
       this.music.play(musicConfig);
+      this.slashSound = this.sound.add("slashSound");
+      this.impactSound = this.sound.add("impact");
     }
   
     //update function
@@ -301,6 +304,7 @@ class Scene2 extends Phaser.Scene
     //disparo da raposa(slash)
     shootSlash(){
       var slash = new Slash(this);
+      this.slashSound.play();
     }
     //lixos movendo funçao
     movLixo(lixo, spdx){
@@ -326,5 +330,6 @@ class Scene2 extends Phaser.Scene
         this.score += 5;
       }
       this.scoreLabel.text = "Fox Coins: " + this.score;
+      this.impactSound.play();
     }
   }
