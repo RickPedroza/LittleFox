@@ -60,6 +60,12 @@ class Scene1 extends Phaser.Scene
         this.load.image("botao06", "./assets/images/botao06.png");
         this.load.image("plank", "./assets/images/plank.png");
         this.load.image("trofeu", "./assets/images/trofeu.png");
+
+        this.load.audio("music", ["assets/sounds/8-bit-paradise.mp3"]);
+        this.load.audio("music", ["assets/sounds/8-bit-impact-sound.mp3"]);
+        this.load.audio("music", ["assets/sounds/8-bit-slash.mp3"]);
+    
+    
     }
 
     create()
@@ -83,8 +89,8 @@ class Scene1 extends Phaser.Scene
         this.anims.create({
             key: "slash_anim",
             frames: this.anims.generateFrameNumbers("slash"),
-            frameRate: 20,
-            repeat: -1
+            frameRate: 12,
+            repeat: 0
         });
         this.anims.create({
             key: "trofeu_anim",
@@ -127,8 +133,6 @@ class Scene1 extends Phaser.Scene
             frames: this.anims.generateFrameNumbers("borda"),
             frameRate: 100,
             repeat: 0
-        });
-
-       
+        });      
     }
 }

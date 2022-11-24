@@ -64,13 +64,7 @@ class Scene2 extends Phaser.Scene
       graphics.closePath();
       graphics.fillPath();
       
-      //score
-      this.score = 0;
-    
-      //Textos
-      this.scoreLabel = this.add.bitmapText(10, 5, "pixelFont", "Lixo coletado: ", 25);
-      this.menu = this.add.bitmapText(1140, 315, "pixelFont", "MENU", 25);
-
+      
       //botoes
 
       //botao 01
@@ -81,9 +75,12 @@ class Scene2 extends Phaser.Scene
       this.plank = this.add.sprite(260, 330, "plank"); 
 
       botao01.on('pointerdown', function(pointer){
-
-        borda01.play('borda01_anim');
-      })
+        if(this.score >= 30){
+          borda01.play('borda01_anim');
+          this.score -= 30;
+          this.scoreLabel.text = "Fox Coins: " + this.score;
+        }
+      }, this)
       botao01.on('pointerover', function(){
 
         botao01.setTint(0xa37f5f);
@@ -102,9 +99,12 @@ class Scene2 extends Phaser.Scene
       this.plank = this.add.sprite(260, 475, "plank");
 
       botao02.on('pointerdown', function(pointer){
-
-        borda02.play('borda02_anim');
-      })
+        if(this.score >= 60){
+          borda02.play('borda02_anim');
+          this.score -= 60;
+          this.scoreLabel.text = "Fox Coins: " + this.score;
+        }
+      }, this)
       botao02.on('pointerover', function(){
 
         botao02.setTint(0xa37f5f);
@@ -124,9 +124,12 @@ class Scene2 extends Phaser.Scene
       this.plank = this.add.sprite(260, 625, "plank");
 
       botao03.on('pointerdown', function(pointer){
-
-        borda03.play('borda03_anim');
-      })
+        if(this.score >= 90){
+          borda03.play('borda03_anim');
+          this.score -= 90;
+          this.scoreLabel.text = "Fox Coins: " + this.score;
+        }
+      }, this)
       botao03.on('pointerover', function(){
 
         botao03.setTint(0xa37f5f);
@@ -146,9 +149,12 @@ class Scene2 extends Phaser.Scene
       this.plank = this.add.sprite(660, 325, "plank");
 
       botao04.on('pointerdown', function(pointer){
-
-        borda04.play('borda04_anim');
-      })
+        if(this.score >= 120){
+          borda04.play('borda04_anim');
+          this.score -= 120;
+          this.scoreLabel.text = "Fox Coins: " + this.score;
+        }
+      }, this)
       botao04.on('pointerover', function(){
 
         botao04.setTint(0xa37f5f);
@@ -168,9 +174,12 @@ class Scene2 extends Phaser.Scene
       this.plank = this.add.sprite(660, 475, "plank");
 
       botao05.on('pointerdown', function(pointer){
-
-        borda05.play('borda05_anim');
-      })
+        if(this.score >= 150){
+          borda05.play('borda05_anim');
+          this.score -= 150;
+          this.scoreLabel.text = "Fox Coins: " + this.score;
+        }
+      }, this)
       botao05.on('pointerover', function(){
 
         botao05.setTint(0xa37f5f);
@@ -190,9 +199,13 @@ class Scene2 extends Phaser.Scene
 
       botao06.on('pointerdown', function(pointer){
 
-        trofeu.play('trofeu_anim');
-        borda06.play('borda06_anim');
-      })
+        if(this.score >= 180){
+          trofeu.play('trofeu_anim');
+          borda06.play('borda06_anim');
+          this.score -= 180;
+          this.scoreLabel.text = "Fox Coins: " + this.score; 
+        }
+      }, this)
       botao06.on('pointerover', function(){
 
         botao06.setTint(0xa37f5f);
@@ -232,21 +245,40 @@ class Scene2 extends Phaser.Scene
       
       //clique na raposa (animaçao atk e slash)
       fox.on('pointerdown', function (pointer) {
-        if (fox.anims.getName() === 'fox_run_anim')
+        /*if (fox.anims.getName() === 'fox_run_anim')
         {
           fox.playAfterRepeat('fox_atk_anim');
           fox.chain(['fox_run_anim']);
-        }
+        }*/
         this.shootSlash();
       }, this);
 
       this.fox = fox;
       
-      this.physics.add.collider(this.projectiles, this.lixos);
+      this.physics.add.overlap(this.projectiles, this.lixos, this.hitLixo, null, this);
+    
+      //score
+      this.score = 0;
+    
+      //Textos
+      this.scoreLabel = this.add.bitmapText(10, 5, "pixelFont", "Fox Coins: ", 25);
+      this.menu = this.add.bitmapText(1140, 315, "pixelFont", "MENU", 25);
+
+      this.music = this.sound.add("music");
+      var musicConfig = {
+        mute: false,
+        volume: 0.125,
+        rate: 1,
+        detune: 0,
+        seek: 0,
+        loop: false,
+        delay: 0
+      }
+      this.music.play(musicConfig);
     }
   
     //update function
-    update() 
+    update()  
     {
       //parallax
       this.background01.tilePositionX += 2;
@@ -255,10 +287,15 @@ class Scene2 extends Phaser.Scene
       this.background04.tilePositionX += 0.25;
       this.background05.tilePositionX += 0.125;
       this.background06.tilePositionX += 0;
-  
+      
       this.movLixo(this.lixo01, -3);
       this.movLixo(this.lixo02, -3);
       this.movLixo(this.lixo03, -3);
+
+      for(var i = 0; i < this.projectiles.getChildren().length; i++){
+        var slash = this.projectiles.getChildren()[i];
+        slash.update();
+      }
     }
 
     //disparo da raposa(slash)
@@ -270,7 +307,24 @@ class Scene2 extends Phaser.Scene
       lixo.x += spdx;
       if(lixo.x < -30)
       {
-        lixo.x = (Math.random() * (2500 - 1550)) + 1475;
+        this.resetLixoPos(lixo);
       }
     }
-}
+    resetLixoPos(lixo){
+      lixo.x = (Math.random() * (2500 - 1550)) + 1475;
+    }
+    hitLixo(projectiles, lixo){
+      projectiles.destroy();
+      this.resetLixoPos(lixo);
+      if(lixo == this.lixo01){
+        this.score += 10;
+      }
+      if(lixo == this.lixo02){
+        this.score += 15;
+      }
+      if(lixo == this.lixo03){
+        this.score += 5;
+      }
+      this.scoreLabel.text = "Fox Coins: " + this.score;
+    }
+  }

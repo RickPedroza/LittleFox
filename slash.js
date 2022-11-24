@@ -19,4 +19,11 @@ class Slash extends Phaser.GameObjects.Sprite{
         // 4.2 add the beam to the projectiles group
         scene.projectiles.add(this);
     }
+    update(){
+
+        if(this.x > 300){
+            this.destroy();
+        }
+
+    }
 }
