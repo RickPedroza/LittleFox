@@ -75,11 +75,16 @@ class Scene2 extends Phaser.Scene
       this.plank = this.add.sprite(260, 330, "plank"); 
 
       botao01.on('pointerdown', function(pointer){
-        if(this.score >= 30){
+        if(this.score >= 5){
           borda01.play('borda01_anim');
-          this.score -= 30;
+          this.score -= 5;
           this.scoreLabel.text = "Fox Coins: " + this.score;
-          
+          this.background01.tilePositionX += 6;
+          this.background02.tilePositionX += 3;
+          this.background03.tilePositionX += 1.5;
+          this.background04.tilePositionX += 0.75;
+          this.background05.tilePositionX += 0.375;
+          this.background06.tilePositionX += 0;
         }
       }, this)
       botao01.on('pointerover', function(){
@@ -175,10 +180,13 @@ class Scene2 extends Phaser.Scene
       this.plank = this.add.sprite(660, 475, "plank");
 
       botao05.on('pointerdown', function(pointer){
-        if(this.score >= 150){
+        if(this.score >= 5){
           borda05.play('borda05_anim');
-          this.score -= 150;
+          this.score -= 5;
           this.scoreLabel.text = "Fox Coins: " + this.score;
+          this.pato.play('pato_anim');
+          this.scorePato();
+          
         }
       }, this)
       botao05.on('pointerover', function(){
@@ -232,7 +240,9 @@ class Scene2 extends Phaser.Scene
       this.lixos.add(this.lixo02);
       this.lixos.add(this.lixo03);
 
-      //this.physics.add.overlap(this.projectiles, this.lixos)
+      //pato
+      this.pato = this.add.sprite(1400, 100);
+      this.pato.setScale(1.5);
       
       //variavel fox
       var fox = this.add.sprite(202, 202)
@@ -265,7 +275,7 @@ class Scene2 extends Phaser.Scene
       this.scoreLabel = this.add.bitmapText(10, 5, "pixelFont", "Fox Coins: ", 25);
       this.menu = this.add.bitmapText(1140, 315, "pixelFont", "MENU", 25);
 
-      this.music = this.sound.add("music");
+      /*this.music = this.sound.add("music");
       var musicConfig = {
         mute: false,
         volume: 1,
@@ -275,7 +285,7 @@ class Scene2 extends Phaser.Scene
         loop: false,
         delay: 0
       }
-      this.music.play(musicConfig);
+      this.music.play(musicConfig);*/
       this.slashSound = this.sound.add("slashSound");
       this.impactSound = this.sound.add("impact");
     }
@@ -294,6 +304,13 @@ class Scene2 extends Phaser.Scene
       this.movLixo(this.lixo01, -3);
       this.movLixo(this.lixo02, -3);
       this.movLixo(this.lixo03, -3);
+      this.movPato(this.pato, -4);
+
+      if(this.pato.x < -30 && this.pato.anims.getName() === 'pato_anim')
+      {
+        this.score += 50;
+        this.scoreLabel.text = "Fox Coins: " + this.score;
+      }
 
       for(var i = 0; i < this.projectiles.getChildren().length; i++){
         var slash = this.projectiles.getChildren()[i];
@@ -306,7 +323,18 @@ class Scene2 extends Phaser.Scene
       var slash = new Slash(this);
       this.slashSound.play();
     }
-    //lixos movendo funçao
+    //lixos/pato movendo funçao
+    movPato(pato, spdxpato){
+      pato.x += spdxpato;
+      if(pato.x < -30)
+      {
+        this.resetPatoPos(pato);
+      }
+    }
+    resetPatoPos(pato){
+      pato.x = (Math.random() * (2500 - 1550)) + 1475;
+    }
+    
     movLixo(lixo, spdx){
       lixo.x += spdx;
       if(lixo.x < -30)

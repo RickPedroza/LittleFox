@@ -49,6 +49,11 @@ class Scene1 extends Phaser.Scene
             frameWidth: 250,
             frameHeight: 20
         });
+        this.load.spritesheet("pato", "./assets/spritesheets/pato_spritesheet.png",
+        {
+            frameWidth: 50,
+            frameHeight: 38
+        });
         
         //hud geral
         this.load.image("hud", "./assets/images/hud.png");
@@ -133,6 +138,12 @@ class Scene1 extends Phaser.Scene
             frames: this.anims.generateFrameNumbers("borda"),
             frameRate: 100,
             repeat: 0
-        });      
+        });
+        this.anims.create({
+            key: "pato_anim",
+            frames: this.anims.generateFrameNumbers("pato"),
+            frameRate: 12,
+            repeat: -1
+        });       
     }
 }
